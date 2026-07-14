@@ -1,6 +1,6 @@
 # Search + Query Catalog — vector, multivector, FTS, hybrid, filtering, tuning
 
-> last-verified-against: docs `search/{index,vector-search,multivector-search,full-text-search,hybrid-search,filtering,optimize-queries,sql/*}.mdx` + SDK `lancedb==0.30.0`, 2026-07-14
+> last-verified-against: docs `search/{index,vector-search,multivector-search,full-text-search,hybrid-search,filtering,optimize-queries,sql/*}.mdx` + SDK `lancedb==0.30.0`; **vector/prefilter/fts/hybrid-RRF/refine_factor/bypass_vector_index/explain_plan live-run-verified on `lancedb==0.34.0`, 2026-07-14** (recall@10=1.0)
 > Sources: `docs/search/*`; SDK `query.py`; DataFusion predicate reference.
 > Owner expert: `lancedb-search-expert`. ⚠️ = version/tier/SDK-verify at build.
 

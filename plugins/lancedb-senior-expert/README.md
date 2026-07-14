@@ -36,6 +36,7 @@ use cases     → multimodal agents · time-travel RAG · recommenders · image/
 ## Components
 
 - **Governing skill** + **10 grounded catalogs** + **7 process references** (`lancedb-docs-protocol`, `quorum-protocol`, `planning-checklist`, `handoff-template`, `memory-write-protocol`, `upstream-assets`, `scaffold-templates`).
+- **A re-runnable verification harness** (`tests/verify_catalogs.py`) — 13 checks that exercise the catalogs' core paths against a real LanceDB, offline; exit 1 on any drift.
 - **12 agents:** the `lancedb-senior-expert` coordinator (opus); 6 subdomain experts (`lancedb-schema-table-`, `-indexing-`, `-search-`, `-storage-deployment-`, `-integrations-`, `-use-case-architect`); the fleet (`lancedb-pipeline-developer`, `lancedb-code-reviewer`, `lancedb-performance-adversary` [opus], `lancedb-dev-doc-worker`, `lancedb-docs-curator`).
 - **10 commands:** `/lancedb-plan`, `/lancedb-implement`, `/lancedb-scaffold` + `/lancedb-status` (complete-usable layer), `/lancedb-index`, `/lancedb-search`, `/lancedb-migrate`, `/lancedb-optimize`, `/lancedb-review`, `/lancedb-handoff`.
 - **Hooks:** `PreToolUse` native-guard (blocks a competing vector store; advises on asymmetric embedding + brute-force-at-scale footguns); `Stop`/`SubagentStop` handoff reminders.
@@ -61,9 +62,9 @@ claude plugin install lancedb-senior-expert@ml-lancedb-docs
 
 Then `/lancedb-plan <system>` to design, or `/lancedb-scaffold <repo>` to generate a runnable LanceDB store.
 
-## Status — M1 (v0.1.0)
+## Status — M1 (v0.1.0), catalogs live-verified
 
-Complete, valid, installable plugin: every component wired; the 10 catalogs grounded against the LanceDB docs + SDK source (read at core `0.28.0-beta.4`; docs snippets track `lancedb==0.30.0`). **⚠️ version/tier/SDK-verify at build:** index defaults (imperative `create_index` static vs async data-derived `num_partitions`/`num_sub_vectors`), provider registry names + params, tier-only features (Enterprise query-embed at ingest, TS lacking `IvfSq`/namespace lifecycle, GPU build Python-sync-only), and deprecations. **Deferred:** an optional `lancedb-docs` MCP over the catalogs.
+Complete, valid, installable plugin: every component wired; the 10 catalogs grounded against the LanceDB docs + SDK source (read at core `0.28.0-beta.4`; docs snippets track `lancedb==0.30.0`) **and live-run-verified against `lancedb==0.34.0` (2026-07-14) — 13/13 core paths PASS, recall@10 = 1.0** via `tests/verify_catalogs.py`. That run caught real forward-drift, now folded in: the **unified `create_index(column, config=…)` API** is current (the imperative `create_index(metric=…)` / `create_scalar_index` / `create_fts_index` forms are deprecated since 0.25.0) — see `indexing-catalog.md` + `scaffold-templates.md`. **⚠️ still version/tier/SDK-verify at build:** provider registry names + params, tier-only features (Enterprise query-embed at ingest, TS lacking `IvfSq`/namespace lifecycle, GPU build Python-sync-only). **Intentionally deferred by design:** a `lancedb-docs` MCP — `upstream-assets.md` records the governance rule *not* to declare stdio MCPs inside a plugin (rely on the project `.mcp.json`), so it stays a project-level concern, not a plugin component.
 
 ---
 

@@ -1,6 +1,6 @@
 # Lance Format Catalog — versioning, zero-copy evolution, blobs, compaction
 
-> last-verified-against: docs `lance.mdx`, `tables/versioning.mdx`, `tables/schema.mdx`, `tables/update.mdx` + SDK `lancedb==0.30.0` (`table.py`), 2026-07-14
+> last-verified-against: docs `lance.mdx`, `tables/versioning.mdx`, `tables/schema.mdx`, `tables/update.mdx` + SDK `lancedb==0.30.0` (`table.py`); **versioning/checkout/tags/add_columns/alter_columns/drop_columns/optimize live-run-verified on `lancedb==0.34.0`, 2026-07-14**
 > Sources: `docs/lance.mdx`; `docs/tables/{versioning,schema,update,multimodal}.mdx`; SDK `refs/ml-lancedb/python/python/lancedb/table.py` (versioning/tags/optimize). SDK read at core `0.28.0-beta.4`.
 > Owner expert: `lancedb-schema-table-expert`. ⚠️ = version/tier/SDK-verify at build. `lancedb-docs-curator` keeps fresh.
 

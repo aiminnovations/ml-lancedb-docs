@@ -1,6 +1,6 @@
 # Tables + Schema Catalog — connect, create, schema, merge_insert, consistency
 
-> last-verified-against: docs `tables/{index,create,schema,update,consistency,multimodal}.mdx`, `tables-and-namespaces.mdx` + SDK `lancedb==0.30.0`, 2026-07-14
+> last-verified-against: docs `tables/{index,create,schema,update,consistency,multimodal}.mdx`, `tables-and-namespaces.mdx` + SDK `lancedb==0.30.0`; **connect/create_table/merge_insert(idempotent)/versioning/tags/add_columns live-run-verified on `lancedb==0.34.0`, 2026-07-14**
 > Sources: `docs/tables/*`; SDK `refs/ml-lancedb/python/python/lancedb/{__init__.py,db.py,table.py,merge.py,pydantic.py}`.
 > Owner expert: `lancedb-schema-table-expert`. ⚠️ = version/tier/SDK-verify at build.
 

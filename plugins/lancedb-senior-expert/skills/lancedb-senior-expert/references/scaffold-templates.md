@@ -1,6 +1,6 @@
 # Scaffold Templates — the complete, runnable LanceDB service starter files
 
-> last-verified-against: LanceDB docs (`tables/*`, `indexing/*`, `search/*`, `embedding/*`) + SDK `lancedb==0.30.0`, 2026-07-14
+> last-verified-against: LanceDB docs (`tables/*`, `indexing/*`, `search/*`, `embedding/*`) + SDK `lancedb==0.30.0`; **index build path live-run-verified on `lancedb==0.34.0`, 2026-07-14** (config-object API)
 > Owner: `lancedb-pipeline-developer` (writes them) + `lancedb-schema-table-expert` (grounds them).
 > The "complete usable" payload for `/lancedb-scaffold` — real, runnable files, not advice. Native-first; every
 > API cited to a catalog. Generate only after confirmation; never overwrite an existing file without a diff first.
@@ -49,21 +49,21 @@ def ingest(rows: list[dict]) -> None:
 
 ## 2. index.py — build the vector + scalar + FTS indexes, then optimize
 Choose the index from `indexing-catalog.md` by scale + recall + filter-heaviness. Build is async — wait for it.
+Uses the **unified config-object API** (verified on `lancedb==0.34.0`; the imperative `create_index(metric=…)`/`create_scalar_index`/`create_fts_index` forms are deprecated since 0.25.0 — see the catalog note).
 ```python
-# vector index: IVF_PQ (compact) or IVF_HNSW_SQ (best recall/latency); tune to your row count
-table.create_index(
-    metric="cosine",                 # match the embedding model's metric
-    index_type="IVF_HNSW_SQ",        # or "IVF_PQ" for max compression at dim<=256
-    # num_partitions / num_sub_vectors default from data on async; set explicitly at scale
-)
+from lancedb.index import IvfHnswSq, IvfPq, BTree, Bitmap, FTS
+
+# vector index: IVF_HNSW_SQ (best recall/latency) or IvfPq (max compression at dim<=256)
+table.create_index("vector", config=IvfHnswSq(distance_type="cosine"))   # match the embedding model's metric
+# table.create_index("vector", config=IvfPq(distance_type="cosine", num_partitions=..., num_sub_vectors=...))
 table.wait_for_index(["vector_idx"])
 
 # scalar index on every frequently-filtered column (accelerates prefilter)
-table.create_scalar_index("id")                            # BTREE (high-cardinality join key)
-# table.create_scalar_index("category", index_type="BITMAP")   # low-cardinality
+table.create_index("id", config=BTree())                   # high-cardinality join key
+# table.create_index("category", config=Bitmap())          # low-cardinality
 
 # full-text index for hybrid/keyword search (native backend; with_position for phrases)
-table.create_fts_index("text", use_tantivy=False, with_position=True)
+table.create_index("text", config=FTS(with_position=True))
 table.wait_for_index(["text_idx"])
 
 table.optimize()   # compaction + cleanup(>7d default) + fold new data into indexes

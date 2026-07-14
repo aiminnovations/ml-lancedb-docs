@@ -1,8 +1,21 @@
 # Indexing + Quantization Catalog — vector, scalar, FTS indexes; PQ/SQ/RaBitQ
 
-> last-verified-against: docs `indexing/{index,vector-index,fts-index,scalar-index,gpu-indexing,quantization,reindexing}.mdx` + SDK `lancedb==0.30.0` (`table.py`, `index.py`), 2026-07-14
+> last-verified-against: docs `indexing/{index,vector-index,fts-index,scalar-index,gpu-indexing,quantization,reindexing}.mdx` + SDK `lancedb==0.30.0` (`table.py`, `index.py`); **live-run-verified against `lancedb==0.34.0`, 2026-07-14** (13 core paths PASS, recall@10=1.0).
 > Sources: `docs/indexing/*`; SDK `refs/ml-lancedb/python/python/lancedb/table.py` (`create_index`/`create_scalar_index`/`create_fts_index`), `index.py`.
 > Owner expert: `lancedb-indexing-expert`. ⚠️ = version/tier/SDK-verify at build. This is the highest-leverage catalog — a wrong index type or param is expensive to unwind.
+
+## ⚠️ API shape: the unified `create_index(column, config=…)` is the current form (≥ 0.25.0)
+
+LanceDB **unified the index API in 0.25.0**. The imperative forms this catalog documents below (`create_index(metric=…, num_partitions=…)`, `create_scalar_index`, `create_fts_index`) still work but **emit `DeprecationWarning` and will be removed** — live-confirmed on `lancedb==0.34.0`. Prefer the config-object form (live-verified 0.34.0):
+```python
+from lancedb.index import IvfPq, IvfHnswSq, IvfHnswPq, IvfFlat, BTree, Bitmap, LabelList, FTS
+table.create_index("vector", config=IvfPq(distance_type="l2", num_partitions=16, num_sub_vectors=16))
+table.create_index("vector", config=IvfHnswSq(distance_type="cosine"))
+table.create_index("id",     config=BTree())          # scalar; also Bitmap(), LabelList()
+table.create_index("text",   config=FTS(with_position=True))
+table.wait_for_index(["vector_idx"])
+```
+The config classes carry the SAME params as the imperative signatures below (`distance_type`/`metric`, `num_partitions`, `num_sub_vectors`, `num_bits`, HNSW `m`/`ef_construction`) — the tables + rules of thumb below still hold; only the call shape changed. When you target an older pinned SDK (≤ 0.24), the imperative forms are correct. ⚠️ Confirm the installed version and use the matching shape.
 
 ## Vector indexes
 
