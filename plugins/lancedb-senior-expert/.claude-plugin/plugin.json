@@ -1,0 +1,21 @@
+{
+  "name": "lancedb-senior-expert",
+  "version": "0.1.0",
+  "description": "Docs-first master expert for LanceDB and the Lance columnar format — the store-and-retrieval layer for multimodal AI, RAG, agents, recommenders, search, and ML training. Owns the whole LanceDB surface across the Python, TypeScript/Node, and Rust SDKs plus REST/Cloud/Enterprise: the Lance format (fragments, manifest, zero-copy schema evolution, versioning/time-travel, blob/multimodal encoding, compaction) → tables (connect, create from arrow/pandas/polars/pydantic-LanceModel, merge_insert/upsert, multimodal columns, consistency) → indexing (IVF_PQ / IVF_HNSW_SQ / IVF_FLAT vector indexes, BTREE/BITMAP/LABEL_LIST scalar indexes, native + tantivy FTS/inverted indexes, PQ/SQ/binary quantization, GPU build, reindex/optimize) → search (vector, multivector/ColBERT, full-text, hybrid, SQL filtering with prefilter/postfilter, query tuning: nprobes/refine_factor/fast_search) → embeddings (the get_registry auto-embedding registry + every provider: OpenAI, Cohere, Gemini, HuggingFace, SentenceTransformers, Jina, VoyageAI, Bedrock, IBM, Ollama, ColPali, ImageBind, OpenCLIP, Instructor) → reranking (RRF, LinearCombination, CrossEncoder, ColBERT, Cohere, Jina, OpenAI, Voyage, AnswerDotAI, custom) → storage (local / S3 / GCS / Azure / S3-compatible, storage_options, separation of storage & compute) → namespaces (directory / REST / Glue / Hive / Unity) → Geneva feature engineering (scalar/batch UDFs & UDTFs, provider embedding UDFs, backfill jobs, materialized views, Ray/K8s deployment) → training (Lance torch data loaders, multimodal lakehouse) → integrations (pandas/pyarrow/polars/DuckDB/dlt/Voxel51/Pydantic + LangChain/LlamaIndex/Agno/Genkit/Kiln/HuggingFace) → advanced applications (multimodal agents, time-travel RAG, recommenders, semantic/image/video search, GraphRAG via lance-graph). A governing skill + an agent fleet (senior-expert coordinator, pipeline-developer, code-reviewer, performance-adversary, dev-doc/QC worker, docs-curator) + 6 subdomain experts (schema/table, indexing, search/query, storage/deployment, integrations, use-case) + 10 grounded catalogs absorbed from the LanceDB docs and SDK source. Always-deploy quorum, planning-checklist discipline, catalog-grounded (never from memory), version-aware across OSS/Cloud/Enterprise. Complete-usable layer built in: /lancedb-scaffold generates a runnable LanceDB service (table + index + search + embedding wiring + eval), /lancedb-status scores LanceDB-readiness 0-100. The primary tool for any LanceDB or Lance-format design, build, migration, indexing, search, or optimization task.",
+  "author": {
+    "name": "Sean Rawlings",
+    "email": "sean.rawlings@aiminnovations.io"
+  },
+  "homepage": "https://github.com/aiminnovations/ml-lancedb-docs/tree/main/plugins/lancedb-senior-expert",
+  "repository": "https://github.com/aiminnovations/ml-lancedb-docs",
+  "license": "MIT",
+  "keywords": [
+    "lancedb", "lance", "vector-database", "vector-search", "columnar-format", "multimodal",
+    "embeddings", "embedding-registry", "ivf-pq", "hnsw", "quantization", "full-text-search",
+    "hybrid-search", "reranking", "scalar-index", "time-travel", "versioning", "merge-insert",
+    "storage-options", "s3", "namespaces", "geneva", "feature-engineering", "udf", "materialized-views",
+    "torch", "training", "rag", "agents", "recommender", "graphrag", "lance-graph", "duckdb", "polars",
+    "pyarrow", "langchain", "llamaindex", "lancedb-cloud", "lancedb-enterprise", "docs-first",
+    "catalog-grounded", "multi-agent", "senior-expert", "juniper"
+  ]
+}
