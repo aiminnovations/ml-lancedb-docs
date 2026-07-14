@@ -1,0 +1,50 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ml-lancedb-docs",
+  "description": "Claude Code plugin marketplace hosted alongside the LanceDB documentation. Ships the lancedb-senior-expert plugin — a docs-first master expert for LanceDB and the Lance columnar format (tables, indexing, search, embeddings, reranking, storage, namespaces, Geneva feature engineering, training, integrations, and advanced applications) across the Python, TypeScript, and Rust SDKs plus REST/Cloud/Enterprise. Catalog-grounded against the LanceDB docs and SDK source, planning-checklist-enforced, always-deploy quorum.",
+  "owner": {
+    "name": "Sean Rawlings / AIM Innovations",
+    "email": "sean.rawlings@aiminnovations.io"
+  },
+  "plugins": [
+    {
+      "name": "lancedb-senior-expert",
+      "description": "Senior LanceDB expert skill + coordinator + 6 subdomain experts (schema/table, indexing, search/query, storage/deployment, integrations, use-case) + support fleet (pipeline-developer, code-reviewer, performance-adversary, dev-doc/QC worker, docs-curator), backed by 10 catalogs absorbed from the LanceDB docs and SDK source. Covers the Lance format, tables, IVF/HNSW/scalar/FTS indexing, quantization, vector/multivector/FTS/hybrid search, the embedding registry, reranking, storage_options + object stores, namespaces, Geneva feature engineering, Lance torch training, data-platform + AI-framework integrations, and advanced applications (multimodal agents, time-travel RAG, recommenders, GraphRAG). Enforces catalog-driven grounding, docs verification, and planning-checklist discipline so agents never design LanceDB implementations from training-time memory.",
+      "author": {
+        "name": "Sean Rawlings",
+        "email": "sean.rawlings@aiminnovations.io"
+      },
+      "source": "./plugins/lancedb-senior-expert",
+      "category": "data-architecture",
+      "keywords": [
+        "lancedb",
+        "lance",
+        "vector-database",
+        "multimodal",
+        "embeddings",
+        "rag",
+        "juniper"
+      ],
+      "homepage": "https://github.com/aiminnovations/ml-lancedb-docs/tree/main/plugins/lancedb-senior-expert",
+      "juniperComponents": {
+        "skills": [
+          "lancedb-senior-expert"
+        ],
+        "agents": [
+          "lancedb-senior-expert",
+          "lancedb-schema-table-expert",
+          "lancedb-indexing-expert",
+          "lancedb-search-expert",
+          "lancedb-storage-deployment-expert",
+          "lancedb-integrations-expert",
+          "lancedb-use-case-architect",
+          "lancedb-pipeline-developer",
+          "lancedb-code-reviewer",
+          "lancedb-performance-adversary",
+          "lancedb-dev-doc-worker",
+          "lancedb-docs-curator"
+        ]
+      }
+    }
+  ]
+}
